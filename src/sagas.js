@@ -1,7 +1,9 @@
 import { take, takeEvery, put, call, all } from 'redux-saga/effects'
 
 import {
-  searchMoviesRequest,
+  SEARCH_MOVIES_REQUEST,
+} from './modules/home/actions'
+import {
   searchMoviesReceive,
   searchMoviesSuccess,
   searchMoviesFail,
@@ -32,7 +34,7 @@ export function* searchSaga({ payload }) {
 }
 
 export function* searchWatcher() {
-  yield takeEvery(searchMoviesRequest, searchSaga)
+  yield takeEvery(SEARCH_MOVIES_REQUEST, searchSaga)
 }
 
 export default function* mainSagas() {

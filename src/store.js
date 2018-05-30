@@ -10,11 +10,12 @@ const routingMiddleware = routerMiddleware(history)
 const sagaMiddleware = createSagaMiddleware()
 
 // Initial state
-const initialState = {
+/* const initialState = {
   data: [],
   errorMessage: null,
   isLoading: false,
 }
+*/
 
 const enhancers = []
 const middleware = [
@@ -37,7 +38,6 @@ const composedEnhancers = compose(
 
 const store = createStore(
   rootReducers,
-  initialState,
   composedEnhancers,
 )
 
