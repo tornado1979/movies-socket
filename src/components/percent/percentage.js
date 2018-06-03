@@ -1,6 +1,8 @@
 import React from 'react'
 import propTypes from 'prop-types'
 
+import './percent.scss'
+
 export const Percent = (props) => {
   return (
     <div className="percent">

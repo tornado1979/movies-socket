@@ -6,11 +6,14 @@ import './block.scss'
 // import imgLoremIpsum from '../../assets/img/Lorem-Ipsum.jpg'
 
 export const Block = ({
+  bgTemplate,
   hasImage = false,
   hasMessage,
   hasTitle,
   isCopywrite,
   isMenu = false,
+  isMonoblock,
+  isReverse,
   source,
   text,
   title,
@@ -18,6 +21,9 @@ export const Block = ({
   const blockClass = classnames({
     'block-wrapper': true,
     copywrite: isCopywrite,
+    'direction-reverse': isReverse,
+    [`bg--${bgTemplate}`]: bgTemplate,
+    monoblock: isMonoblock,
     menu: isMenu,
   })
   const colTextClass = classnames({
@@ -39,20 +45,26 @@ export const Block = ({
 }
 
 Block.defaultProps = {
+  bgTemplate: 'template1',
   hasImage: false,
   hasMessage: false,
   hasTitle: false,
   isCopywrite: false,
   isMenu: false,
+  isMonoblock: false,
+  isReverse: false,
   title: 'title',
 }
 
 Block.propTypes = {
+  bgTemplate: propTypes.string,
   hasImage: propTypes.bool,
   hasMessage: propTypes.bool,
   hasTitle: propTypes.bool,
   isCopywrite: propTypes.bool,
   isMenu: propTypes.bool,
+  isMonoblock: propTypes.bool,
+  isReverse: propTypes.bool,
   source: propTypes.string, // eslint-disable-line
   text: propTypes.oneOfType([ // eslint-disable-line
     propTypes.string,

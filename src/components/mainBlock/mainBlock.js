@@ -27,7 +27,7 @@ export const MainBlock = ({
       <div className="col-text">
         {text}
       </div>}
-      {/* 4 blocks : lists & payments img */}
+      {/* 4 blocks : lists & popcorn img */}
       {/* and social blocks */}
       {children &&
         <Fragment>
