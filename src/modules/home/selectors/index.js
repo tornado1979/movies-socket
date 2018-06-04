@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect'
-import _ from 'lodash'
 
 const getLocalState = state => state
 const getRoute = state => state.routing
@@ -16,10 +15,10 @@ export const getData = createSelector(
 
 export const getMovieIdFromRoute = createSelector(
   getRoute,
-  routing => routing.location.pathname.split('/')[1],
+  routing => routing.location.pathname.split('/movies-socket/')[1],
 )
 
 export const getMovie = createSelector(
   [getData, getMovieIdFromRoute],
-  (data, searchingId) => _.filter(data, ({ id }) => id === searchingId)[0],
+  (data, movieIdFromRoute) => data.filter(movie => movie.id === Number(movieIdFromRoute))[0],
 )

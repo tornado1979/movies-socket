@@ -144,7 +144,7 @@ class Home extends Component {
           {!loading && movies.length === 0
            &&
            <div>
-             <p>Please search your favorite movie..</p>
+             <p><h1>Please search your favorite movie..</h1></p>
            </div>}
         </div>
       </main>
