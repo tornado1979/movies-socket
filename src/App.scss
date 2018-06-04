@@ -9,15 +9,24 @@ $color4: #000; // Menus border-bottom
 $color5: #000; // font color black
 $color6: #fff; //  header bg
 $color7: #707070; // menu fonts color
+$bodyColor: #f4f4f4; // body background-color
 
 * {
   box-sizing: border-box;
 }
 
 body {
+  background-color: $bodyColor;
   font-family: Arial, Tahoma;
   color: $color7;
   margin: 0;
+
+  input:focus,
+  select:focus,
+  textarea:focus,
+  button:focus {
+    outline: none;
+  }
 }
 
 #root {

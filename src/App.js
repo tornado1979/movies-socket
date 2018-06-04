@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react'
-import {
-  BrowserRouter as Router,
-} from 'react-router-dom'
 import { Provider } from 'react-redux'
 
-import './App.scss'
+import { ConnectedRouter } from 'react-router-redux'
+
+import { history as browserHistory } from './helpers/history'
+
 import store from './store'
+
+import './App.scss'
 
 import { Routes } from './components/routes'
 import { Footer } from './components/footer'
@@ -15,13 +17,13 @@ const App = () =>
   (
     <div className="App">
       <Provider store={store}>
-        <Router>
+        <ConnectedRouter history={browserHistory}>
           <Fragment>
             <Header />
             <Routes />
             <Footer bgTemplate="template1" />
           </Fragment>
-        </Router>
+        </ConnectedRouter>
       </Provider>
     </div>)
 
