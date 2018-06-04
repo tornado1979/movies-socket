@@ -1,4 +1,4 @@
-import img from '../assets/img/payments.jpg'
+import img from '../assets/img/popcorn.png'
 import facebook from '../assets/img/icon_facebook.png'
 import linkedin from '../assets/img/icon_linkedin.png'
 import youtube from '../assets/img/icon_youTube.png'
