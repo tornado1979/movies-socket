@@ -13,9 +13,9 @@ export const ViewMode = ({ change }) => {
     <div className="view">
       <form>
         <select className="viewBox" onChange={e => change(e)}>
+          <option value={VIEW_MODE_SMALL}>2 movies ii per line</option>
           <option value={VIEW_MODE_LARGE}>1 movie per line</option>
           <option value={VIEW_MODE_MEDIUM}>2 movies i per line</option>
-          <option value={VIEW_MODE_SMALL}>2 movies ii per line</option>
         </select>
       </form>
     </div>

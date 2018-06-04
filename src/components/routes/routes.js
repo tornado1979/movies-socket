@@ -1,9 +1,9 @@
 import React from 'react'
 // import routing components
 import {
-  Route,
   Switch,
-} from 'react-router-dom'
+  Route,
+} from 'react-router'
 
 import Home from '../../modules/home/home'
 import MovieDetails from '../../modules/movie/movieDetails'
@@ -15,11 +15,11 @@ export const Routes = () => {
       <Route
         component={Home}
         exact
-        path="/"
+        path="/movies-socket"
       />
       <Route
         component={MovieDetails}
-        path="/:movieId"
+        path="/movies-socket/:movieId"
       />
       <Route component={NotFound} />
     </Switch>

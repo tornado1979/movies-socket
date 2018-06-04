@@ -3,11 +3,10 @@ import {
 } from '../actions'
 
 const initialState = {
-  viewMode: 'VIEW_MODE_LARGE',
+  viewMode: 'VIEW_MODE_SMALL',
 }
 
 export const reducer = (state = initialState, { payload, type }) => {
-  console.log(state, payload, type)
   switch (type) {
     case VIEW_MODE_CHANGE:
       return {
