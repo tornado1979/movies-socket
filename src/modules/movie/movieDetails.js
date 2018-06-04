@@ -78,17 +78,8 @@ MovieDetails.propTypes = {
   movie: propTypes.shape().isRequired,
 }
 
-const mapStateToProps = (state) => {
-  console.log(state)
-  return {
-    movie: getMovie(state),
-  }
-}
-
-/*
-const mapDispatchToProps = dispatch => bindActionCreators({
-  getMovie,
-}, dispatch)
-*/
+const mapStateToProps = state => ({
+  movie: getMovie(state),
+})
 
 export default connect(mapStateToProps, null)(MovieDetails)

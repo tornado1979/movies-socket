@@ -23,8 +23,8 @@ export const Block = ({
     copywrite: isCopywrite,
     'direction-reverse': isReverse,
     [`bg--${bgTemplate}`]: bgTemplate,
-    monoblock: isMonoblock,
     menu: isMenu,
+    monoblock: isMonoblock,
   })
   const colTextClass = classnames({
     'col-text': true,
