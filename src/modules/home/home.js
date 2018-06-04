@@ -26,7 +26,6 @@ import {
 import { Percent } from '../../components/percent'
 import { Search } from '../../components/search'
 import { Loader } from '../../components/loader'
-import { Sort } from '../../components/sort'
 import { ViewMode } from '../../components/viewMode'
 
 import './main.scss'
@@ -132,7 +131,6 @@ class Home extends Component {
           <ViewMode
             change={this.changeView}
           />
-          <Sort />
           <Search
             change={this.changeHandler}
             click={this.fetchMovies}
