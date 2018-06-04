@@ -142,7 +142,7 @@ class Home extends Component {
           {!loading && movies.length === 0
            &&
            <div>
-             <p><h1>Please search your favorite movie..</h1></p>
+             <h1>Please search your favorite movie..</h1>
            </div>}
         </div>
       </main>
@@ -154,9 +154,9 @@ Home.propTypes = {
   alterViewMode: propTypes.func.isRequired,
   changeRoute: propTypes.func.isRequired,
   loading: propTypes.bool.isRequired,
-  movies: propTypes.shape().isRequired, // todo: fix shape object
+  movies: propTypes.array.isRequired, // eslint-disable-line
   searchMovies: propTypes.func.isRequired,
-  viewMode: propTypes.shape().isRequired,
+  viewMode: propTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({
