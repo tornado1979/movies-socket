@@ -1,17 +1,17 @@
 import { createSelector } from 'reselect'
 import _ from 'lodash'
 
-const getState = state => state.main
+const getLocalState = state => state
 const getRoute = state => state.routing
 
 export const isLoading = createSelector(
-  getState,
-  state => state.isLoading,
+  getLocalState,
+  state => state.movies.isLoading,
 )
 
 export const getData = createSelector(
-  getState,
-  state => state.data || [],
+  getLocalState,
+  state => state.movies.data || [],
 )
 
 export const getMovieIdFromRoute = createSelector(

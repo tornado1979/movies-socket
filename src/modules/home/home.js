@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import propTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
 import moment from 'moment'
-// import { Link } from 'react-router-dom'
+import classnames from 'classnames'
 
 import {
   getData,
@@ -10,10 +12,22 @@ import {
 } from './selectors'
 
 import {
+  getViewMode,
+} from '../../components/viewMode/selectors'
+
+import {
   searchMoviesRequest,
 } from './actionCreators'
 
+import {
+  changeViewMode,
+} from '../../components/viewMode/actionCreators'
+
 import { Percent } from '../../components/percent'
+import { Search } from '../../components/search'
+import { Loader } from '../../components/loader'
+import { Sort } from '../../components/sort'
+import { ViewMode } from '../../components/viewMode'
 
 import './main.scss'
 
@@ -22,9 +36,12 @@ class Home extends Component {
     super(props)
 
     this.state = {
-      movies: [],
+      searchString: '',
     }
+    this.goto = this.goto.bind(this)
+    this.changeView = this.changeView.bind(this)
     this.fetchMovies = this.fetchMovies.bind(this)
+    this.changeHandler = this.changeHandler.bind(this)
   }
 
   getMovies() {
@@ -35,17 +52,27 @@ class Home extends Component {
   }
 
   fetchMovies() {
-    console.log('search movies...') // eslint-disable-line
-    this.props.searchMovies()
+    this.props.searchMovies(this.state.searchString)
   }
 
-  createMovies(movies) { // eslint-disable-line class-methods-use-this
+  createMovies(movies) {
+    const {
+      viewMode,
+    } = this.props
+
+    // panel class gets view mode : VIEW_MODE_LARGE, VIEW_MODE_MEDIUM, VIEW_MODE_SMALL
+    const panelClass = classnames({
+      panel: true,
+      [`${viewMode}`]: true,
+    })
+
     let moviesDOM
+
     if (movies && movies.length > 0) {
       moviesDOM = movies.map((movie) => {
         let movieReleaseDate = moment(movie.release_date) // eslint-disable-line prefer-const
         return (
-          <div className="panel" key={movie.id}>
+          <div className={panelClass} key={movie.id}>
             <div className="panel-img">
               <img alt="movie" src={movie.full_poster_path} />
             </div>
@@ -61,7 +88,9 @@ class Home extends Component {
               </div>
               <p className="panel-text">{movie.overview}</p>
               <p className="view-more">
+                <button onClick={() => this.goto(`/movies-socket/${movie.id}`)}>
                   more info
+                </button>
               </p>
             </div>
           </div>)
@@ -69,6 +98,25 @@ class Home extends Component {
     }
 
     return moviesDOM
+  }
+
+  goto(location) {
+    this.props.changeRoute(location)
+  }
+
+  changeHandler(event) {
+    // if user press 'enter', dispatch SEARCH_MOVIES action
+    if (event.keyCode === 13) {
+      this.fetchMovies()
+    }
+    // update state with the searchString
+    this.setState({
+      searchString: event.target.value,
+    })
+  }
+
+  changeView(e) {
+    this.props.alterViewMode(e.target.value)
   }
 
   render() {
@@ -80,9 +128,24 @@ class Home extends Component {
     const moviesData = this.createMovies(movies)
     return (
       <main>
-        {!loading && <button onClick={this.fetchMovies}>search</button>}
+        <div className="search-bar">
+          <ViewMode
+            change={this.changeView}
+          />
+          <Sort />
+          <Search
+            change={this.changeHandler}
+            click={this.fetchMovies}
+          />
+        </div>
         <div className="wrapper">
           {moviesData}
+          {loading && <Loader />}
+          {!loading && movies.length === 0
+           &&
+           <div>
+             <p>Please search your favorite movie..</p>
+           </div>}
         </div>
       </main>
     )
@@ -90,18 +153,25 @@ class Home extends Component {
 }
 
 Home.propTypes = {
+  alterViewMode: propTypes.func.isRequired,
+  changeRoute: propTypes.func.isRequired,
   loading: propTypes.bool.isRequired,
-  movies: propTypes.shape().isRequired,
+  movies: propTypes.shape().isRequired, // todo: fix shape object
   searchMovies: propTypes.func.isRequired,
+  viewMode: propTypes.shape().isRequired,
 }
 
 const mapStateToProps = state => ({
   loading: isLoading(state),
   movies: getData(state),
+  viewMode: getViewMode(state),
 })
 
-const mapDispatchToProps = dispatch => ({
-  searchMovies: () => dispatch(searchMoviesRequest('Terminator 1')),
-})
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  alterViewMode: changeViewMode,
+  changeRoute: location => push(location),
+  searchMovies: searchMoviesRequest,
+}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

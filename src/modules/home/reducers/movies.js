@@ -12,7 +12,6 @@ const initialState = {
 }
 
 export const moviesReducer = (state = initialState, { type, payload }) => {
-  console.log('reducer..:', type, payload)
   switch (type) {
     case SEARCH_MOVIES_REQUEST:
       return {
